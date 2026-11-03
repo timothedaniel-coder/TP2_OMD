@@ -1,7 +1,9 @@
 # TP2 - Conception Orientée-Objet : Mini-Editeur
 
 **Binôme :** DANIEL Timothé & ROULLE Goulven
+
 **Groupe :** ESIR 2 Informatique option IoT
+
 **Année :** 2025-2026
 
 ## Description du projet
