@@ -1,0 +1,96 @@
+@startuml
+interface Command {
+    + execute()
+    + undo()
+}
+
+class CommandManager {
+    - historyStack : Stack<Command>
+    - redoStack : Stack<Command>
+    + executeCommand(c: Command)
+    + undo()
+    + redo()
+}
+
+class InsererCommand implements Command {
+    - texte : String
+    - offset : int
+    + execute()
+    + undo()
+}
+
+class CopierCommand implements Command {
+    - ancienPressePapier : String
+    - texteCopie : String
+    + execute()
+    + undo()
+}
+
+class CollerCommand implements Command {
+    - texteRemplace : String
+    - debutAncien : int
+    - finAncienne : int
+    - texteColle : String
+    + execute()
+    + undo()
+}
+
+class CouperCommand implements Command {
+    - texteCoupe : String
+    - debutAncien : int
+    - finAncienne : int
+    - ancienPressePapier : String
+    + execute()
+    + undo()
+}
+
+class SelectionCommand implements Command {
+    - ancienDebut : int
+    - ancienneFin : int
+    - nouveauDebut : int
+    - nouvelleFin : int
+    + execute()
+    + undo()
+}
+
+class MoteurEdition {
+    + getBuffer() : Buffer
+    + getSelection() : Selection
+    + getPressePapier() : PressePapier
+    + getTexteBuffer() : String
+}
+
+class Buffer {
+    - texte : StringBuilder
+    + inserer(texte: String, offset: int)
+    + supprimer(debut: int, fin: int)
+    + getTexte(): String
+    + getSousTexte(debut: int, fin: int): String
+}
+
+class Selection {
+    - debut : int
+    - fin : int
+    + getDebut(): int
+    + getFin(): int
+    + setIndex(debut: int, fin: int)
+}
+
+class PressePapier {
+    - contenu : String
+    + setContenu(texte: String)
+    + getContenu(): String
+}
+
+MoteurEdition "1" *-- "1" Buffer : modifie
+MoteurEdition "1" *-- "1" Selection : gère
+MoteurEdition "1" *-- "1" PressePapier : utilise
+
+InsererCommand --> MoteurEdition : receiver
+CopierCommand --> MoteurEdition : receiver
+CollerCommand --> MoteurEdition : receiver
+CouperCommand --> MoteurEdition : receiver
+SelectionCommand --> MoteurEdition : receiver
+
+CommandManager o-- Command : gère
+@enduml

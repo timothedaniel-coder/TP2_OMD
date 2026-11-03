@@ -1,0 +1,23 @@
+@startuml
+actor Utilisateur
+participant "moteur : MoteurEdition" as M
+participant "selection : Selection" as S
+participant "buffer : Buffer" as B
+participant "pressePapier : PressePapier" as P
+
+Utilisateur -> M : copier()
+activate M
+
+M -> S : d = getDebut()
+M -> S : f = getFin()
+
+M -> B : texte = getSousTexte(d, f)
+activate B
+return texte
+
+M -> P : setContenu(texte)
+activate P
+return
+
+deactivate M
+@enduml

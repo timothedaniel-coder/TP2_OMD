@@ -1,0 +1,28 @@
+@startuml
+actor Utilisateur
+participant "app : MiniEditeurApp" as App
+participant "moteur : MoteurEdition" as M
+participant "selection : Selection" as S
+participant "buffer : Buffer" as B
+
+Utilisateur -> App : saisie "INSERER <texte>"
+activate App
+
+App -> M : getSelection()
+activate M
+return S
+
+App -> S : getDebut()
+activate S
+return offset
+
+App -> M : getBuffer()
+activate M
+return B
+
+App -> B : inserer(texte, offset)
+activate B
+return
+
+deactivate App
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+actor Utilisateur
+participant "app : MiniEditeurApp" as App
+participant "manager : CommandManager" as CM
+participant "cmd : InsererCommand" as Cmd
+participant "moteur : MoteurEdition" as M
+
+Utilisateur -> App : saisie "INSERER texte"
+activate App
+
+create Cmd
+App -> Cmd : new InsererCommand(moteur, "texte")
+
+App -> CM : executeCommand(cmd)
+activate CM
+
+CM -> Cmd : execute()
+activate Cmd
+
+Cmd -> M : getBuffer().inserer("texte", offset)
+activate M
+return
+
+Cmd -> M : getSelection().setIndex(...)
+activate M
+return
+deactivate Cmd
+
+CM -> CM : historyStack.push(cmd)
+CM -> CM : redoStack.clear()
+
+deactivate CM
+deactivate App
+@enduml

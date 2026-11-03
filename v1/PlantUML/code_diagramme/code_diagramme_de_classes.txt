@@ -1,0 +1,35 @@
+@startuml
+class MoteurEdition {
+  + copier()
+  + couper()
+  + coller()
+  + deplacerSelection(debut: int, fin: int)
+  + getTexteBuffer(): String
+}
+
+class Buffer {
+  - texte : StringBuilder
+  + inserer(texte: String, offset: int)
+  + supprimer(debut: int, fin: int)
+  + getTexte(): String
+  + getSousTexte(debut: int, fin: int): String
+}
+
+class Selection {
+  - debut : int
+  - fin : int
+  + getDebut(): int
+  + getFin(): int
+  + setIndex(debut: int, fin: int)
+}
+
+class PressePapier {
+  - contenu : String
+  + setContenu(texte: String)
+  + getContenu(): String
+}
+
+MoteurEdition "1" *-- "1" Buffer : modifie
+MoteurEdition "1" *-- "1" Selection : gère
+MoteurEdition "1" *-- "1" PressePapier : utilise
+@enduml

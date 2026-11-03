@@ -1,0 +1,31 @@
+@startuml
+actor Utilisateur
+participant "app : MiniEditeurApp" as App
+participant "manager : CommandManager" as CM
+participant "cmd : Command" as Cmd
+participant "moteur : MoteurEdition" as M
+
+Utilisateur -> App : saisie "UNDO"
+activate App
+
+App -> CM : undo()
+activate CM
+
+opt historyStack non vide
+    CM -> CM : cmd = historyStack.pop()
+    
+    CM -> Cmd : undo()
+    activate Cmd
+    
+    Cmd -> M : actions inverses (ex: supprimer)
+    activate M
+    return
+    
+    deactivate Cmd
+    
+    CM -> CM : redoStack.push(cmd)
+end
+
+deactivate CM
+deactivate App
+@enduml

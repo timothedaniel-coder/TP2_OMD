@@ -1,0 +1,14 @@
+@startuml
+actor Utilisateur
+participant "moteur : MoteurEdition" as M
+participant "selection : Selection" as S
+
+Utilisateur -> M : deplacerSelection(debut, fin)
+activate M
+
+M -> S : setIndex(debut, fin)
+activate S
+return
+
+deactivate M
+@enduml

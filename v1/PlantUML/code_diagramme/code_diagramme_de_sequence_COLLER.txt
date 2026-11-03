@@ -1,0 +1,33 @@
+@startuml
+actor Utilisateur
+participant "moteur : MoteurEdition" as M
+participant "pressePapier : PressePapier" as P
+participant "selection : Selection" as S
+participant "buffer : Buffer" as B
+
+Utilisateur -> M : coller()
+activate M
+
+M -> P : contenu = getContenu()
+activate P
+return contenu
+
+opt contenu non vide
+    M -> S : d = getDebut()
+    M -> S : f = getFin()
+    
+    M -> B : supprimer(d, f)
+    activate B
+    return
+    
+    M -> B : inserer(contenu, d)
+    activate B
+    return
+    
+    M -> S : setIndex(d + length(contenu), d + length(contenu))
+    activate S
+    return
+end
+
+deactivate M
+@enduml
