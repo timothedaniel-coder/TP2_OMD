@@ -10,7 +10,6 @@ public class MoteurEdition {
     }
 
     public void deplacerSelection(int debut, int fin) {
-        // Ajouter ici des vérifications (debut >= 0, fin <= taille du buffer)
         selection.setIndex(debut, fin);
     }
 
@@ -20,15 +19,15 @@ public class MoteurEdition {
     }
 
     public void couper() {
-        copier(); // Copie de la sélection dans le presse-papier[cite: 1]
-        buffer.supprimer(selection.getDebut(), selection.getFin()); // Effacement de la sélection[cite: 1]
+        copier(); // Copie de la sélection dans le presse-papier
+        buffer.supprimer(selection.getDebut(), selection.getFin()); // Effacement de la sélection
         selection.setIndex(selection.getDebut(), selection.getDebut()); // Réinitialise la sélection
     }
 
     public void coller() {
         String contenu = pressePapier.getContenu();
         if (contenu != null && !contenu.isEmpty()) {
-            // Remplacement de la sélection par le presse-papier[cite: 1]
+            // Remplacement de la sélection par le presse-papier
             buffer.supprimer(selection.getDebut(), selection.getFin());
             buffer.inserer(contenu, selection.getDebut());
             // Mise à jour de la sélection après insertion
