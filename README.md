@@ -4,7 +4,7 @@
 
 **Groupe :** ESIR 2 Informatique option IoT
 
-**Année :** 2025-2026
+**Année :** 2026-2027
 
 ## Description du projet
 Ce projet consiste en la conception et la réalisation d'un mini-éditeur de texte en appliquant les principes de la programmation orientée-objet. Le développement est réalisé "en spirale" avec plusieurs versions successives. 
